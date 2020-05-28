@@ -3,7 +3,7 @@
 
 import os,webbrowser as wb
 
-print("Version: 1.0.0.1")
+print("Version: 1.0.0.2")
 print()
 print('----------------')
 print()
@@ -34,6 +34,9 @@ def setView():
 def createIndexFile():
 
     IndexData="""
+
+const path=require('path');
+
 const express = require('express');
 
 const bodyParser = require('body-parser');
@@ -48,6 +51,8 @@ const app = express();
 
 
 //
+
+app.use('/', express.static(path.join(__dirname, 'views')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -102,16 +107,25 @@ app.listen(80, () => {
 
 def initialize():
 
+    print("Initalizing project: "+folderName+" ...")
+
     os.chdir(folderName)
 
     os.system("npm init -y")
 
+    print("Installing dependencies , refer package.json for more information")
+
     os.system("npm i express hbs body-parser cookie-parser --save")
+
+    print("Installation successfull :) ")
+
+    print("Press Crtl-C to stop the server\n")
 
     wb.open('localhost')
 
     os.system("node index.js")
 
+    
     
 
 
